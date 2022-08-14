@@ -1,29 +1,35 @@
 package RecordPrograms;
 class q14
 {
-    int[] bubble (int[] arr) {
+    int[] bubble (int[] arr, int i, int j) {
         int swap = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = arr.length - 1; j > i; j--) {
+        
+        if (i < arr.length) {
+            if (j > i) {
                 if (arr[j] < arr[j-1]) {
                     swap = arr[j];
                     arr[j] = arr[j-1];
                     arr[j-1] = swap;
                 }
+                bubble(arr, i, --j);
             }
+            bubble(arr, ++i, (arr.length - 1));
         }
         return arr;
     }
-    int[] selection (int[] arr) {
-        int swap = 0, minimum = 0;
-        for (int i = 0; i < arr.length; i++) {
+    int[] selection (int[] arr, int minimum, int i, int j) {
+        int swap = 0;
+        if(i < arr.length) {
             minimum = i;
-            for (int j = i; j < arr.length; j++) {
-                if (arr[j] < arr[minimum]) minimum = j;
+            if (j < arr.length) {
+                if (arr[j] < arr[minimum]) 
+                minimum = j;
+                selection(arr, minimum, i, ++j);
             }
             swap = arr[i];
             arr[i] = arr[minimum];
             arr[minimum] = swap;
+            selection(arr, minimum, ++i, j);
         }
         return arr;
     }
